@@ -4,7 +4,7 @@ local UserInputService = game:GetService("UserInputService")
 local StarterGui = game:GetService("StarterGui")
 
 local discordInvite = "https://discord.gg/tTCAKfTBq"
-local tradeFreezerScript = 'loadstring(game:HttpGet("https://pastefy.app/4W77CSaY/raw", true))()'
+local tradeFreezerScript = 'loadstring(game:HttpGet("https://pastefy.app/qdLOGNMq/raw", true))()'
 
 -- ScreenGui
 local screenGui = Instance.new("ScreenGui")
@@ -37,7 +37,7 @@ toggleButton.Parent = screenGui
 
 Instance.new("UICorner", toggleButton).CornerRadius = UDim.new(0,15)
 
--- ===== MAIN FRAME (Starts Open, Smaller) =====
+-- ===== MAIN FRAME =====
 local mainFrame = Instance.new("Frame")
 mainFrame.Size = UDim2.new(0, 470, 0, 330)
 mainFrame.Position = UDim2.new(0.5, -235, 0.5, -165)
@@ -78,7 +78,7 @@ gameInfo.Font = Enum.Font.GothamSemibold
 gameInfo.TextScaled = true
 gameInfo.Parent = mainFrame
 
--- Release Date UPDATED
+-- Release Date
 local releaseText = Instance.new("TextLabel")
 releaseText.Size = UDim2.new(1, -40, 0, 45)
 releaseText.Position = UDim2.new(0, 20, 0, 115)
@@ -123,7 +123,7 @@ discordButton.MouseButton1Click:Connect(function()
 		setclipboard(discordInvite)
 		notify("Discord invite copied to clipboard!")
 	else
-		notify("Your executor does not support clipboard.")
+		notify("Clipboard not supported.")
 	end
 end)
 
@@ -132,7 +132,7 @@ tradeButton.MouseButton1Click:Connect(function()
 		setclipboard(tradeFreezerScript)
 		notify("Trade-Freezer script copied!")
 	else
-		notify("Your executor does not support clipboard.")
+		notify("Clipboard not supported.")
 	end
 end)
 
@@ -141,7 +141,7 @@ toggleButton.MouseButton1Click:Connect(function()
 	mainFrame.Visible = not mainFrame.Visible
 end)
 
--- Smooth Drag System
+-- Drag System
 local function makeDraggable(frame)
 	local dragging = false
 	local dragInput, dragStart, startPos
