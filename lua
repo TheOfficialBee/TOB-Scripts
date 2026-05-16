@@ -78,7 +78,7 @@ Sub.BackgroundTransparency = 1
 Sub.Position = UDim2.new(0.05,0,0.20,0)
 Sub.Size = UDim2.new(0.9,0,0,30)
 Sub.Font = Enum.Font.GothamBold
-Sub.Text = "COMPLETE ALL STEPS TO UNLOCK"
+Sub.Text = "Join our group to unlock access."
 Sub.TextColor3 = Color3.fromRGB(0,255,170)
 Sub.TextSize = 17
 Sub.TextXAlignment = Enum.TextXAlignment.Left
@@ -128,7 +128,7 @@ local CopyCorner = Instance.new("UICorner", CopyButton)
 CopyCorner.CornerRadius = UDim.new(0,14)
 
 local CopyStroke = Instance.new("UIStroke", CopyButton)
-CopyStroke.Color = Color3.fromRGB(120,255,190)
+CopyStroke.Color = Color3.fromRGB(120,120,120)
 CopyStroke.Thickness = 1.5
 
 -- BUTTON HOVER EFFECT
@@ -166,7 +166,7 @@ local ToggleCorner = Instance.new("UICorner", Toggle)
 ToggleCorner.CornerRadius = UDim.new(0,12)
 
 local ToggleStroke = Instance.new("UIStroke", Toggle)
-ToggleStroke.Color = Color3.fromRGB(0,255,170)
+ToggleStroke.Color = Color3.fromRGB(120,120,120)
 ToggleStroke.Thickness = 1.6
 
 -- TOGGLE FUNCTION
